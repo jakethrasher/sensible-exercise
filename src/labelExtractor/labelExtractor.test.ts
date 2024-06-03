@@ -1,11 +1,10 @@
-
+import * as fs from 'fs';
 import { labelExtractor } from '.';
 import {
   Label,
   StandardizedLine,
   StandardizedText,
 } from '../types';
-import fs from 'fs';
 
 const data = fs.readFileSync('./src/standardized_text.json', { encoding: 'utf-8' });
 const text: StandardizedText = JSON.parse(data);
