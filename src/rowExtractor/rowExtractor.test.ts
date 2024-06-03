@@ -1,12 +1,6 @@
-import * as fs from 'fs';
+import * as text from '../standardized_text.json';
 import { rowExtractor } from '.';
-import {
-  Row,
-  StandardizedText,
-} from '../types';
-
-const data = fs.readFileSync('./src/standardized_text.json', { encoding: 'utf-8' });
-const text: StandardizedText = JSON.parse(data);
+import { Row } from '../types';
 
 describe('rowExtractor', () => {
   describe('matches to the right', () => {
@@ -18,11 +12,29 @@ describe('rowExtractor', () => {
         anchor: "line haul"
       };
       const line = rowExtractor(configuration, text);
-      expect(line.text).toBe('$1770.00');
-
+      expect(line)
+        .toEqual({
+          "text": "$1770.00",
+          "boundingPolygon": [
+            { "x": 6.765, "y": 1.994 },
+            { "x": 7.315, "y": 1.994 },
+            { "x": 7.315, "y": 2.122 },
+            { "x": 6.765, "y": 2.122 }
+          ] 
+        });
+       
       configuration.anchor = 'total';
       const line2 = rowExtractor(configuration, text);
-      expect(line2.text).toBe('$1770.00')
+      expect(line2)
+        .toEqual({
+          "text": "$1770.00",
+          "boundingPolygon": [
+            { "x": 6.632, "y": 2.389 },
+            { "x": 7.314, "y": 2.389 },
+            { "x": 7.314, "y": 2.544 },
+            { "x": 6.632, "y": 2.544 }
+          ]
+        })
     });
   
     test('match on second tiebreaker', () => {
@@ -33,7 +45,16 @@ describe('rowExtractor', () => {
         anchor: "mc number"
       };
       const line = rowExtractor(configuration, text);
-      expect(line.text).toBe('Booked on');
+      expect(line)
+        .toEqual({
+          "text": "Booked on",
+          "boundingPolygon": [
+            { "x": 5.618, "y": 1.482 },
+            { "x": 6.135, "y": 1.482 },
+            { "x": 6.135, "y": 1.586 },
+            { "x": 5.618, "y": 1.586 }
+          ]
+        })
     });
   });
 

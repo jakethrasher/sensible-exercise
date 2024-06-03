@@ -49,7 +49,7 @@ export const rowExtractor: RowExtractor = (configuration: Row, text: Standardize
 
 /**
  * Returns a tuple containing page and line indices of first occurence of anchor line within text.
- * Works as proof of concept, but a better solution would need to handle multiple occurences of anchor line.
+ * Works as proof of concept, but a better solution would need to handle multiple occurences of an anchor line.
  */
 export const findAnchorPosition = (pages: StandardizedPage[], anchorLine: string): [number, number] => {
   let page!: number;
@@ -70,7 +70,7 @@ export const findAnchorPosition = (pages: StandardizedPage[], anchorLine: string
 };
 
 /**
- * Scans lines array starting from anchor position and looks either left or right for matches
+ * Starting from anchor position, scans left or right for matches.
  */
 const findMatches = (
   configuration: Row,
@@ -81,7 +81,6 @@ const findMatches = (
   const anchorBounds = lines[anchorLineIndex].boundingPolygon;
   const tolerance = 0.08; // https://docs.sensible.so/docs/row
   
-
   const matches: StandardizedLine[] = [];
 
   if (position === 'right') {

@@ -1,13 +1,6 @@
-import * as fs from 'fs';
+import * as text from '../standardized_text.json';
 import { labelExtractor } from '.';
-import {
-  Label,
-  StandardizedLine,
-  StandardizedText,
-} from '../types';
-
-const data = fs.readFileSync('./src/standardized_text.json', { encoding: 'utf-8' });
-const text: StandardizedText = JSON.parse(data);
+import { Label, StandardizedLine } from '../types';
 
 describe('labelExtractor', () => {
   describe('extracts a line below or above', () => {
@@ -20,17 +13,31 @@ describe('labelExtractor', () => {
 
     test('below - distance', () => {
       const match = labelExtractor(configuration, text) as StandardizedLine;
-
-      expect(match.text)
-        .toBe('733mi');
+      expect(match)
+        .toEqual({
+          "text": "733mi",
+          "boundingPolygon": [
+            { "x": 2.005, "y": 4.413 },
+            { "x": 2.374, "y": 4.413 },
+            { "x": 2.374, "y": 4.541 },
+            { "x": 2.005, "y": 4.541 },
+          ]
+        });
     });
 
     test('below - load number', () => {
       configuration.anchor = 'load number';
       const match = labelExtractor(configuration, text) as StandardizedLine;
-
-      expect(match.text)
-        .toBe('4836118435');
+      expect(match)
+        .toEqual({
+          "text": "4836118435",
+          "boundingPolygon": [
+            { "x": 0.943, "y": 2.925 },
+            { "x": 2.411, "y": 2.925 },
+            { "x": 2.411, "y": 3.184 },
+            { "x": 0.943, "y": 3.184 }
+          ]
+        });
     });
   });
   

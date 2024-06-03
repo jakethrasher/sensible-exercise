@@ -109,11 +109,12 @@ const findMatches = (
   }
 
   /**
-   * For matching text to the left or right, this returns the rest of the anchor line.
+   * For matching text to the left or right, this returns the rest of the anchor line, per the documentation https://docs.sensible.so/docs/label.
+   * 
    * For example, if the anchor line is "please call our 24/7 number: 844-822-UBER",
    * you can anchor on "please call our 24/7 number" and return "844-822-UBER" by using position: "right"
    * 
-   * This is not great, but I added some tests to show it basically works.
+   * This is not great, but I added some tests to show that it basically works.
    */
   if (position === 'left' || position === 'right') {
     const regex = new RegExp(`${anchor}`, 'i');
