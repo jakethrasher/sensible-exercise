@@ -46,11 +46,6 @@ export type RowExtractor = (
 ) => StandardizedLine;
 
 // Indices of vertices in bounding polygon
-
-//  UL-----UR
-//  |      |
-//  LL-----LR
-//
 export const TOP_LEFT = 0;
 export const TOP_RIGHT = 1;
 export const BOTTOM_RIGHT = 2;
